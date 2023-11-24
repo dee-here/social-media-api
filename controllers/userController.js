@@ -3,7 +3,9 @@ const { User, Thought } = require("../models");
 module.exports = {
   getAllUsers: async (req, res) => {
     try {
-      const users = await User.find();
+      const users = await User.find()
+      .populate('friends')
+      .populate('thoughts');
       res.json(users);
     } catch (err) {
       console.log(err);
@@ -14,7 +16,10 @@ module.exports = {
     try {
       const user = await User.findOne({
         _id: req.params.userId,
-      }).select("-__v");
+      })
+        .populate('friends')
+        .populate('thoughts')
+        .select("-__v");
       if (!user) {
         return res.status(404).json({ message: "No User with this ID" });
       }
@@ -61,7 +66,7 @@ module.exports = {
       }
 
       // TODO
-      //delete all users thoughts 
+      //delete all users thoughts
       //await Thought.deleteMany({ _id: { $in: user.thoughts } });
       //delete all users saved in friend with that id?
       await User.updateMany(
@@ -75,6 +80,46 @@ module.exports = {
     }
   },
   addFriend: async (req, res) => {
+    //get userId and Friends user id and update thats users friends array
+    try {
+      const userId = req.params.userId;
+      const friendId = req.params.friendId;
 
-  }
+      const user = await User.findOneAndUpdate(
+        { _id: userId },
+        { $push: { friends: friendId } },
+        { new: true }
+      );
+
+      if (!user) {
+        res.status(404).json({ message: "No User with this ID" });
+      }
+      res.json(user);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Server Error" });
+    }
+  },
+  deleteFriend: async (req, res) => {
+    //remove a friend from a user
+    try {
+      const userId = req.params.userId;
+      const friendId = req.params.friendId;
+
+      const user = await User.findOneAndUpdate(
+        { _id: userId },
+        { $pull: { friends: friendId } },
+        { new: true }
+      );
+
+      if (!user) {
+        res.status(404).json({ message: "No User with this ID" });
+      }
+      res.json(user);
+      
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Server Error" });
+    }
+  },
 };
