@@ -3,9 +3,7 @@ const { User, Thought } = require("../models");
 module.exports = {
   getAllUsers: async (req, res) => {
     try {
-      const users = await User.find()
-      .populate('friends')
-      .populate('thoughts');
+      const users = await User.find().populate("friends").populate("thoughts");
       res.json(users);
     } catch (err) {
       console.log(err);
@@ -17,8 +15,8 @@ module.exports = {
       const user = await User.findOne({
         _id: req.params.userId,
       })
-        .populate('friends')
-        .populate('thoughts')
+        .populate("friends")
+        .populate("thoughts")
         .select("-__v");
       if (!user) {
         return res.status(404).json({ message: "No User with this ID" });
@@ -65,10 +63,9 @@ module.exports = {
         res.status(404).json({ message: "No user with this ID" });
       }
 
-      // TODO
-      //delete all users thoughts
-      //await Thought.deleteMany({ _id: { $in: user.thoughts } });
-      //delete all users saved in friend with that id?
+      //delete all deleted users thoughts
+      await Thought.deleteMany({ _id: { $in: user.thoughts } });
+      //delete all users saved in friend with that id
       await User.updateMany(
         { friends: user._id },
         { $pull: { friends: user._id } }
@@ -116,7 +113,6 @@ module.exports = {
         res.status(404).json({ message: "No User with this ID" });
       }
       res.json(user);
-      
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Server Error" });
