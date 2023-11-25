@@ -90,14 +90,13 @@ module.exports = {
       if (!thought) {
         return res.status(404).json({ error: "Thought not found" });
       }
-      const { reactionBody, username} = req.body;
+      const { reactionBody, username } = req.body;
 
-      thought.reactions.push({ reactionBody, username});
+      thought.reactions.push({ reactionBody, username });
 
       const updatedThought = await thought.save();
 
       res.json(updatedThought);
-
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Server Error" });
@@ -106,21 +105,23 @@ module.exports = {
   deleteReaction: async (req, res) => {
     try {
       const thoughtId = req.params.thoughtId;
-      const thought = await Thought.findById(thoughtId);
+      const reactionId = req.params.reactionId;
+      console.log("reactionId : ", reactionId);
+
+      const thought = await Thought.findByIdAndUpdate(
+        thoughtId,
+        { $pull: { reactions: { reactionId: reactionId } } },
+        { new: true }
+      );
+
       if (!thought) {
         return res.status(404).json({ error: "Thought not found" });
       }
-      const { reactionBody, username} = req.body;
 
-      thought.reactions.push({ reactionBody, username});
-
-      const updatedThought = await thought.save();
-
-      res.json(updatedThought);
-
+      res.json(thought);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Server Error" });
-    }    
-  }
+    }
+  },
 };
