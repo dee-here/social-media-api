@@ -30,11 +30,11 @@ Run the command "npm run start" to run the server.
 
 ### /api/users
 
-* `GET`     All users and their friends and thoughts data populated.
-* `GET`     A single user using its id and friends and thoughts data populated.
-* `POST`    Create a new user by specifying a unique username and email.
-* `PUT`     Update a user with its id.
-* `DELETE`  Delete a user with its id. Also remove that user from other users friends list. Also delete all the deleted user's thoughts.
+* `GET`     `/` All users and their friends and thoughts data populated.
+* `GET`     `/_id` A single user using its id and friends and thoughts data populated.
+* `POST`    `/` Create a new user by specifying a unique username and email.
+* `PUT`     `/_id` Update a user with its id.
+* `DELETE`  `/_id` Delete a user with its id. Also remove that user from other users friends list. Also delete all the deleted user's thoughts.
 
 
 ### /api/users/:userId/friends/:friendId
@@ -44,11 +44,11 @@ Run the command "npm run start" to run the server.
 
 ### /api/thoughts
 
-* `GET`     All Thoughts and reactions populated.
-* `GET`     A single thought using its id and its reactions data populated.
-* `POST`    Create a new thought.
-* `PUT`     Update a thought with its id
-* `DELETE`  Delete a thought with its id. Also remove that thought from user's thoughts array.
+* `GET`     `/` All Thoughts and reactions populated.
+* `GET`     `/_id` A single thought using its id and its reactions data populated.
+* `POST`    `/` Create a new thought.
+* `PUT`     `/_id` Update a thought with its id
+* `DELETE`  `/_id` Delete a thought with its id. Also remove that thought from user's thoughts array.
 
 ### /api/thoughts/:thoughtId/reactions
 
