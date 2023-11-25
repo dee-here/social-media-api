@@ -52,7 +52,7 @@ module.exports = {
       );
 
       if (!thought) {
-        res.status(404).json({ message: "No Thought with this ID" });
+        return res.status(404).json({ message: "No Thought with this ID" });
       }
 
       res.json(thought);
@@ -66,7 +66,7 @@ module.exports = {
         _id: req.params.thoughtId,
       });
       if (!thought) {
-        res.status(404).json({ message: "No thought with this ID" });
+        return res.status(404).json({ message: "No thought with this ID" });
       }
       //remove the thought from users thoughts array
       const user = await User.findOneAndUpdate(
