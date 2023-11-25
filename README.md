@@ -1,4 +1,4 @@
-# Social Media Api
+# Social Network Api
 ![License Badge](https://img.shields.io/badge/License-MIT-yellow.svg)  
 
 
@@ -16,9 +16,9 @@ It uses Express.js for routing, a MongoDB database, and the Mongoose ODM.
 | ------------- |-------------| 
 | JavaScript    | [https://developer.mozilla.org/en-US/docs/Web/JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) | 
 | node.js    | [https://nodejs.org/en](https://nodejs.org/en) | 
-| Express.js    | [https://expressjs.com/](https://expressjs.com/) | 
-| Git | [https://git-scm.com/](https://git-scm.com/)     |   
+| Express.js    | [https://expressjs.com/](https://expressjs.com/) |  
 | Mongoose | [https://www.npmjs.com/package/mongoose](https://www.npmjs.com/package/mongoose)     |  
+| Git | [https://git-scm.com/](https://git-scm.com/)     |  
 
 
 
@@ -48,7 +48,7 @@ Run the command "npm run start" to run the server.
 * `GET`     A single thought using its id and its reactions data populated.
 * `POST`    Create a new thought.
 * `PUT`     Update a thought with its id
-* `DELETE`  Delete a thoguht with its id. Also remove that thought from users thoughts array.
+* `DELETE`  Delete a thought with its id. Also remove that thought from users thoughts array.
 
 ### /api/thoughts/:thoughtId/reactions
 
