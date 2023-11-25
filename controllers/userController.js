@@ -3,7 +3,10 @@ const { User, Thought } = require("../models");
 module.exports = {
   getAllUsers: async (req, res) => {
     try {
-      const users = await User.find().populate("friends").populate("thoughts");
+      const users = await User.find()
+        .populate("friends")
+        .populate("thoughts")
+        .select("-__v");
       res.json(users);
     } catch (err) {
       console.log(err);
@@ -82,9 +85,9 @@ module.exports = {
       const userId = req.params.userId;
       const friendId = req.params.friendId;
 
-      const user = await User.findOneAndUpdate(
-        { _id: userId },
-        { $push: { friends: friendId } },
+      const user = await User.findByIdAndUpdate(
+        userId,
+        { $addToSet: { friends: friendId } },
         { new: true }
       );
 

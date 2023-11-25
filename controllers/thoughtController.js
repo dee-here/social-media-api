@@ -3,7 +3,7 @@ const { User, Thought } = require("../models");
 module.exports = {
   getAllThoughts: async (req, res) => {
     try {
-      const thoughts = await Thought.find();
+      const thoughts = await Thought.find().select("-__v");;
       res.json(thoughts);
     } catch (err) {
       console.log(err);
@@ -15,8 +15,6 @@ module.exports = {
       const thought = await Thought.find({
         _id: req.params.thoughtId,
       }).select("-__v");
-      // .populate("reactions");
-
       if (!thought) {
         return res.status(404).json({ message: "No Thought with this ID" });
       }
@@ -32,9 +30,8 @@ module.exports = {
       // create a thought
       const thought = await Thought.create(req.body);
       const userId = req.body.userId;
-      console.log("addThought ", userId);
 
-      //push this users thoughts array => update user!!!
+      //push new thought into users thoughts array => update user
       const user = await User.findOneAndUpdate(
         { _id: userId },
         { $push: { thoughts: thought._id } },
@@ -92,7 +89,7 @@ module.exports = {
       }
       const { reactionBody, username } = req.body;
 
-      thought.reactions.push({ reactionBody, username });
+      thought.reactions.addToSet({ reactionBody, username });
 
       const updatedThought = await thought.save();
 
