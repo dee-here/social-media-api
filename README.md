@@ -1,4 +1,4 @@
-# Social Network Api
+# Social Network API
 ![License Badge](https://img.shields.io/badge/License-MIT-yellow.svg)  
 
 
@@ -26,21 +26,21 @@ It uses Express.js for routing, a MongoDB database, and the Mongoose ODM.
 Install all the dependencies mentioned in package.json by running "npm i" from the root directory.
 Run the command "npm run start" to run the server.
 
-## API  Routes
+## API Routes
 
 ### /api/users
 
 * `GET`     All users and their friends and thoughts data populated.
 * `GET`     A single user using its id and friends and thoughts data populated.
-* `POST`    Create a new user  by specifying a unique username and email.
+* `POST`    Create a new user by specifying a unique username and email.
 * `PUT`     Update a user with its id.
-* `DELETE`  Delete a user with its id. Also remove that user from other users friends list. Also delete all the deleted users thoughts.
+* `DELETE`  Delete a user with its id. Also remove that user from other users friends list. Also delete all the deleted user's thoughts.
 
 
 ### /api/users/:userId/friends/:friendId
 
-* `POST`    Push a new user into the users friends array.
-* `DELETE`  Delete a users friend and remove it from the users friends array.
+* `POST`    Push a new user into the user's friends array.
+* `DELETE`  Delete a user's friend by removing it from the user's friends array.
 
 ### /api/thoughts
 
@@ -48,11 +48,11 @@ Run the command "npm run start" to run the server.
 * `GET`     A single thought using its id and its reactions data populated.
 * `POST`    Create a new thought.
 * `PUT`     Update a thought with its id
-* `DELETE`  Delete a thought with its id. Also remove that thought from users thoughts array.
+* `DELETE`  Delete a thought with its id. Also remove that thought from user's thoughts array.
 
 ### /api/thoughts/:thoughtId/reactions
 
-* `POST`    Create a new reaction for a thought. This is added to the thoughts reaction array.
+* `POST`    Create a new reaction for a thought. This is added to the thought's reaction array.
 
 ### /api/thoughts/:thoughtId/reactions/:reactionId
 
